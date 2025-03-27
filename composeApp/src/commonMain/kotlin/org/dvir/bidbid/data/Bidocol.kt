@@ -31,7 +31,7 @@ class Bidocol {
     init {
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
-                socket = aSocket(selectorManager).tcp().connect("192.168.252.236", 8080)
+                socket = aSocket(selectorManager).tcp().connect("10.100.102.12", 8080)
                 writeChannel = socket.openWriteChannel(autoFlush = true)
                 readChannel = socket.openReadChannel()
             }
@@ -40,11 +40,10 @@ class Bidocol {
         }
     }
 
-    suspend fun sendMessage(code: RequestCode, data: String) {
+    suspend fun sendMessage(data: String) {
         socketInitDeferred.await()
-        val message = "${code.value}\$${data}|"
 
-        writeChannel.writeStringUtf8(message)
+        writeChannel.writeStringUtf8("$data|")
     }
 
     private suspend fun ByteReadChannel.readUntilDelimiter(
@@ -54,24 +53,23 @@ class Bidocol {
 
         while (true) {
             val byte = readByte()
-            if (byte == delimiter) break
+
+            if (byte == delimiter) {
+                break
+            }
+
             buffer.add(byte)
         }
 
-        return buffer.toByteArray().toString()
+        return buffer.toByteArray().decodeToString()
     }
 
-    fun receiveMessagesFlow(): Flow<Pair<ResponseCode, String>> = flow {
+    fun receiveMessagesFlow(): Flow<String> = flow {
         socketInitDeferred.await()
 
         while (true) {
             val message = readChannel.readUntilDelimiter()
-
-            val parts = message.split('$')
-
-            if (parts.size >= 2) {
-                emit(ResponseCode.fromValue(parts[0]) to parts[1])
-            }
+            emit(message)
         }
     }
 }

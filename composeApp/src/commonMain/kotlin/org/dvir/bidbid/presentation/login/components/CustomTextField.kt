@@ -1,4 +1,4 @@
-package org.dvir.bidbid.presentation.components
+package org.dvir.bidbid.presentation.login.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AuthTextField(
+fun CustomTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
@@ -60,8 +60,7 @@ fun AuthTextField(
                 .padding(
                     horizontal = 16.dp,
                     vertical = 16.dp
-                )
-                .fillMaxWidth(),
+                ).fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
