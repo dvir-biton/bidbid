@@ -14,11 +14,13 @@ androidx-test-junit = "1.2.1"
 coilCompose = "3.1.0"
 compose-multiplatform = "1.7.3"
 junit = "4.13.2"
+koinCore = "3.2.0"
 kotlin = "2.1.10"
 ktorNetwork = "3.1.1"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

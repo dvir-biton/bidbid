@@ -2,16 +2,17 @@ package org.dvir.bidbid
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import org.dvir.bidbid.presentation.MontserratTypography
-import org.dvir.project.presentation.LoginScreen
+import androidx.compose.runtime.remember
+import org.dvir.bidbid.presentation.LoginScreen
+import org.dvir.bidbid.presentation.viewmodel.LoginViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme(
-        typography = MontserratTypography()
-    ) {
-        LoginScreen()
+    MaterialTheme {
+        LoginScreen(
+            viewModel = remember { LoginViewModel() }
+        )
     }
 }
